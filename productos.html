@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tiendita</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="tienda__header sticky-top z-3">
+        <nav class=" navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
+        <div class="container debug">
+            <!-- brend -->
+            <a class="navbar-brand tienda__logo" href="index.html">Tiendita</a>
+            <!-- botón mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTienda"
+                aria-controls="navbarTienda" aria-expanded="false" aria-label="toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- contenido -->
+            <div class="collapse navbar-collapse" id="navbarTienda">
+
+                <!-- links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Inicio</a>
+
+                    </li>
+                    <!-- categorías -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Ropa</a></li>
+                            <li><a class="dropdown-item" href="#">Tecnología</a></li>
+                            <li><a class="dropdown-item" href="#">Hogar</a></li>
+                            <li><a class="dropdown-item" href="#">Accesorios</a></li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+                <!-- buscador -->
+                <form class="d-flex me-3" role="search">
+                    <input class="form-control me-2 tienda__search" type="search" placeholder="Buscar...">
+                    <button>Buscar</button>
+                </form>
+                <!-- Iconos -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- perfil -->
+                    <a href="#" class="tienda__icon">
+                        👤</a>
+                    <!-- login -->
+                    <a href="#" class="btn btn-outline-light btn-sm">
+                        Login</a>
+                    <!-- carrito -->
+                    <a href="#" class="tienda__icon position-relative">
+                        🛒
+                        <span class="tienda__cart-badge">2</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        </nav>
+    </header>
+
+
+
+     <main class="flex-fill tienda__productos-page">
+    <div class="container-fluid px-0">
+      <div class="d-flex">
+
+
+        <!-- ============================================
+             SIDEBAR — desktop
+        ============================================ -->
+        <aside class="tienda__sidebar d-none d-lg-block" id="sidebarFiltros">
+
+          <!-- botón toggle -->
+          <button class="tienda__sidebar-toggle mb-3" id="btnToggleSidebar" aria-label="Colapsar filtros">
+            ☰
+          </button>
+
+          <!-- contenido colapsable -->
+          <div class="tienda__sidebar-content">
+
+            <!-- CATEGORÍAS -->
+            <div class="tienda__filtro">
+              <p class="tienda__sidebar-title">Categorías</p>
+              <!-- accordion Bootstrap solo para comportamiento -->
+              <div class="accordion accordion-flush" id="accordionCategorias">
+                <div class="accordion-item border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button py-2 px-0 bg-transparent shadow-none"
+                      type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseCategoria" aria-expanded="true">
+                      <small>Todas las categorías</small>
+                    </button>
+                  </h2>
+                  <div id="collapseCategoria" class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionCategorias">
+                    <div class="accordion-body px-0 py-1">
+                      <ul class="list-unstyled mb-0" style="font-size: 0.88rem;">
+                        <li><a href="#" class="d-block py-1 text-decoration-none text-dark">👕 Ropa</a></li>
+                        <li><a href="#" class="d-block py-1 text-decoration-none text-dark">📱 Tecnología</a></li>
+                        <li><a href="#" class="d-block py-1 text-decoration-none text-dark">🏠 Hogar</a></li>
+                        <li><a href="#" class="d-block py-1 text-decoration-none text-dark">⌚ Accesorios</a></li>
+                        <li><a href="#" class="d-block py-1 text-decoration-none text-dark">🎮 Gamer</a></li>
+                        <li><a href="#" class="d-block py-1 text-decoration-none text-dark">🧴 Belleza</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MARCA -->
+            <div class="tienda__filtro">
+              <p class="tienda__sidebar-title">Marca</p>
+              <div class="tienda__filtro-radio">
+                <label><input type="radio" name="marca" value="todas" checked> Todas</label>
+                <label><input type="radio" name="marca" value="samsung"> Samsung</label>
+                <label><input type="radio" name="marca" value="apple"> Apple</label>
+                <label><input type="radio" name="marca" value="xiaomi"> Xiaomi</label>
+                <label><input type="radio" name="marca" value="sony"> Sony</label>
+                <label><input type="radio" name="marca" value="lg"> LG</label>
+              </div>
+            </div>
+
+            <!-- PRECIO -->
+            <div class="tienda__filtro">
+              <p class="tienda__sidebar-title">Precio máximo</p>
+              <input type="range" class="tienda__precio-range"
+                min="0" max="500000" step="10000" value="500000"
+                id="rangePrecio"
+                oninput="document.getElementById('precioValor').textContent = '$' + Number(this.value).toLocaleString('es-CO')">
+              <div class="tienda__precio-labels">
+                <span>$0</span>
+                <span id="precioValor">$500.000</span>
+              </div>
+            </div>
+
+            <!-- USO -->
+            <div class="tienda__filtro">
+              <p class="tienda__sidebar-title">Uso</p>
+              <select class="tienda__filtro-select">
+                <option value="">Todos</option>
+                <option value="gaming">Gaming</option>
+                <option value="trabajo">Trabajo</option>
+                <option value="estudio">Estudio</option>
+                <option value="hogar">Hogar</option>
+                <option value="deporte">Deporte</option>
+              </select>
+            </div>
+
+            <!-- BOTÓN APLICAR -->
+            <button class="tienda__filtro-btn">Aplicar filtros</button>
+
+          </div><!-- /sidebar-content -->
+        </aside>
+
+
+        <!-- ============================================
+             ÁREA DE PRODUCTOS
+        ============================================ -->
+        <section class="tienda__productos-area">
+
+          <!-- Barra superior -->
+          <div class="tienda__productos-bar">
+            <div class="d-flex align-items-center gap-2">
+              <!-- botón filtros móvil -->
+              <button class="btn btn-outline-secondary btn-sm d-lg-none"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros"
+                aria-controls="offcanvasFiltros">
+                ☰ Filtros
+              </button>
+              <span class="tienda__productos-count">48 productos encontrados</span>
+            </div>
+            <select class="tienda__productos-order">
+              <option>Ordenar por: relevancia</option>
+              <option>Precio: menor a mayor</option>
+              <option>Precio: mayor a menor</option>
+              <option>Más nuevos</option>
+              <option>Más vendidos</option>
+            </select>
+          </div>
+
+          <!-- Grid de productos -->
+          <div class="row g-3">
+
+            <!-- Producto 1 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p1/400/300" alt="Zapatillas" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Zapatillas deportivas premium</p>
+                  <span class="tienda__product-price">$89.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p2/400/300" alt="Audífonos" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Audífonos bluetooth noise cancelling</p>
+                  <span class="tienda__product-price">$149.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p3/400/300" alt="Smartwatch" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Smartwatch series X Pro</p>
+                  <span class="tienda__product-price">$199.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p4/400/300" alt="Mochila" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Mochila urbana impermeable 25L</p>
+                  <span class="tienda__product-price">$79.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 5 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p5/400/300" alt="Camiseta" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Camiseta oversized algodón orgánico</p>
+                  <span class="tienda__product-price">$34.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 6 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p6/400/300" alt="Lámpara" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Lámpara LED escritorio regulable</p>
+                  <span class="tienda__product-price">$44.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 7 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p7/400/300" alt="Teclado" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Teclado mecánico RGB inalámbrico</p>
+                  <span class="tienda__product-price">$129.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 8 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p8/400/300" alt="Perfume" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Perfume unisex colección premium</p>
+                  <span class="tienda__product-price">$94.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 9 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p9/400/300" alt="Mouse" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Mouse gaming ergonómico 12000 DPI</p>
+                  <span class="tienda__product-price">$69.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 10 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p10/400/300" alt="Silla" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Silla gamer ergonómica reclinable</p>
+                  <span class="tienda__product-price">$489.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 11 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p11/400/300" alt="Monitor" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Monitor 27" Full HD 165Hz</p>
+                  <span class="tienda__product-price">$359.900</span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Producto 12 -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="detalle.html" class="tienda__product-card">
+                <img src="https://picsum.photos/seed/p12/400/300" alt="Tablet" class="tienda__product-img">
+                <div class="tienda__product-body">
+                  <p class="tienda__product-name">Tablet 10" 128GB WiFi</p>
+                  <span class="tienda__product-price">$279.900</span>
+                </div>
+              </a>
+            </div>
+
+          </div><!-- /row productos -->
+
+
+          <!-- ==========================================
+               PAGINACIÓN
+          ========================================== -->
+          <nav class="tienda__pagination" aria-label="Paginación de productos">
+            <button class="tienda__pagination-btn">&#8249;</button>
+            <button class="tienda__pagination-btn tienda__pagination-btn--active">1</button>
+            <button class="tienda__pagination-btn">2</button>
+            <button class="tienda__pagination-btn">3</button>
+            <button class="tienda__pagination-btn">4</button>
+            <button class="tienda__pagination-btn">&#8250;</button>
+          </nav>
+
+        </section><!-- /productos-area -->
+
+      </div><!-- /d-flex -->
+    </div><!-- /container-fluid -->
+  </main>
+
+  
+  <!-- ================================================
+       OFFCANVAS — sidebar móvil
+  ================================================ -->
+  <div class="offcanvas offcanvas-start tienda__offcanvas-filtros" tabindex="-1"
+    id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
+
+    <div class="offcanvas-header border-bottom">
+      <h6 class="offcanvas-title" id="offcanvasFiltrosLabel">Filtros</h6>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+
+    <div class="offcanvas-body">
+
+      <!-- CATEGORÍAS -->
+      <div class="tienda__filtro">
+        <p class="tienda__sidebar-title">Categorías</p>
+        <ul class="list-unstyled mb-0" style="font-size: 0.88rem;">
+          <li><a href="#" class="d-block py-1 text-decoration-none text-dark">👕 Ropa</a></li>
+          <li><a href="#" class="d-block py-1 text-decoration-none text-dark">📱 Tecnología</a></li>
+          <li><a href="#" class="d-block py-1 text-decoration-none text-dark">🏠 Hogar</a></li>
+          <li><a href="#" class="d-block py-1 text-decoration-none text-dark">⌚ Accesorios</a></li>
+          <li><a href="#" class="d-block py-1 text-decoration-none text-dark">🎮 Gamer</a></li>
+          <li><a href="#" class="d-block py-1 text-decoration-none text-dark">🧴 Belleza</a></li>
+        </ul>
+      </div>
+
+      <!-- MARCA -->
+      <div class="tienda__filtro">
+        <p class="tienda__sidebar-title">Marca</p>
+        <div class="tienda__filtro-radio">
+          <label><input type="radio" name="marca-mobile" value="todas" checked> Todas</label>
+          <label><input type="radio" name="marca-mobile" value="samsung"> Samsung</label>
+          <label><input type="radio" name="marca-mobile" value="apple"> Apple</label>
+          <label><input type="radio" name="marca-mobile" value="xiaomi"> Xiaomi</label>
+          <label><input type="radio" name="marca-mobile" value="sony"> Sony</label>
+          <label><input type="radio" name="marca-mobile" value="lg"> LG</label>
+        </div>
+      </div>
+
+      <!-- PRECIO -->
+      <div class="tienda__filtro">
+        <p class="tienda__sidebar-title">Precio máximo</p>
+        <input type="range" class="tienda__precio-range"
+          min="0" max="500000" step="10000" value="500000"
+          id="rangePrecioMobile"
+          oninput="document.getElementById('precioValorMobile').textContent = '$' + Number(this.value).toLocaleString('es-CO')">
+        <div class="tienda__precio-labels">
+          <span>$0</span>
+          <span id="precioValorMobile">$500.000</span>
+        </div>
+      </div>
+
+      <!-- USO -->
+      <div class="tienda__filtro">
+        <p class="tienda__sidebar-title">Uso</p>
+        <select class="tienda__filtro-select">
+          <option value="">Todos</option>
+          <option value="gaming">Gaming</option>
+          <option value="trabajo">Trabajo</option>
+          <option value="estudio">Estudio</option>
+          <option value="hogar">Hogar</option>
+          <option value="deporte">Deporte</option>
+        </select>
+      </div>
+
+      <button class="tienda__filtro-btn">Aplicar filtros</button>
+
+    </div>
+  </div>
+
+
+
+   
+    
+
+    <footer class="tienda__footer bg-dark text-light py-2">
+        <div class="container-fluid d-flex flex-column flex-md-row justify-content-around align-items-center flex-wrap">
+
+            <!-- TEXTO -->
+
+            <p class="mb-2 mb-md-0">Síguenos en nuestras redes</p>
+
+            <!-- REDES -->
+            <div>
+                <a href="#" class="tienda__icon">📘</a>
+                <a href="#" class="tienda__icon">📸</a>
+                <a href="#" class="tienda__icon">💬</a>
+            </div>
+
+            <!-- COPYRIGHT -->
+            <p>© 2026 Tiendita - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Tu JS -->
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
